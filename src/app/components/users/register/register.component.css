@@ -1,0 +1,53 @@
+.form-control.login-user {
+  border: 0px solid #fff !important;
+}
+
+.btn-social{
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  border-color: rgb(0,0,0,0.2)
+}
+
+.btn-google{
+  background: #dd4b39
+}
+
+h1{
+  font-family: 'Roboto', sans-serif;
+}
+
+input{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+label{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+select{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+option{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+button{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+a{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+div.error{
+  font-family: 'Roboto', sans-serif;
+  color: #cb3234;
+}

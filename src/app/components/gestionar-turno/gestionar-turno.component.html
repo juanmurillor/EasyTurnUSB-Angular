@@ -1,0 +1,117 @@
+<section id="GestionarAcademico" class="ex1">
+  <div class="jumbotron text-center position-relative">
+    <h1>Listado de Turnos</h1>
+    <button class="btn btn-dark"
+    data-toggle="modal" data-target="#modalTime">{{estimateTime}} minutos</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center">Turno</th>
+          <th class="text-center">Fecha de creación</th>
+          <th class="text-center">Nombre Completo</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Telefono</th>
+          <th class="text-center">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let turno of turnos">
+          <td scope="row" align="center" class="align-middle">{{turno.data().reservado ? "reservado" :turno.data().turno}}</td>
+          <td align="center" class="align-middle">{{turno.data().reservado ? turno.data().fecha_atencion.toDate().toLocaleString() :turno.data().fecha_creacion.toDate().toLocaleString()}}</td>
+          <td align="center" class="align-middle">{{turno.data().nombre}} {{turno.data().apellido}}</td>
+          <td align="center" class="align-middle">
+            <button type="button" class="btn btn-outline-success" (click)="mailPicked = turno"
+              data-toggle="modal" data-target="#modalMail">
+              <span class="oi oi-envelope-open"></span> {{turno.data().email}}</button>
+          </td>
+          <td align="center" class="align-middle">{{turno.data().telefono}}</td>
+          <td align="center" class="align-middle">
+            <button *ngIf="turno.data().atendido" class="btn btn-outline-success">
+              <span class="oi oi-check"></span>
+              Atendido</button>
+            <button *ngIf="!turno.data().atendido" class="btn btn-outline-secondary" (click)="turnoPicked = turno"
+            data-toggle="modal" data-target="#modalAttend">
+              <span class="oi oi-warning"></span>
+              Sin atender</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <!-- Modal correo -->
+  <div class="modal fade" *ngIf="mailPicked != null" id="modalMail" tabindex="-1" role="dialog" aria-labelledby="modalMail" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enviar correo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="mailPicked = null">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span aria-hidden="true">Se enviara un correo a {{mailPicked.data().nombre |titlecase}} {{mailPicked.data().apellido | titlecase }}</span>
+          <textarea class="form-control" #cuerpoMensaje style="margin-top: 10px;"
+            placeholder="Por favor ingrese el cuerpo del correo"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="mailPicked = null">Cancelar</button>
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal" (click)="enviarCorreo()">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- Modal correo -->
+    <div class="modal fade" *ngIf="turnoPicked != null" id="modalAttend" tabindex="-1" role="dialog" aria-labelledby="modalAttend" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Llamar a {{turnoPicked.data().nombre |titlecase}} {{turnoPicked.data().apellido |titlecase}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="turnoPicked = null">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="turnoPicked = null">Cancelar</button>
+            <button type="button" class="btn btn-outline-primary" data-dismiss="modal" (click)="callTurno()">Llamar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Modal tiempo estimado -->
+        <div class="modal fade"  id="modalTime" tabindex="-1" role="dialog" aria-labelledby="modalTime" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cambiar tiempo estimado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form" #formCreateProgram="ngForm" enctype="multipart/form-data" (ngSubmit)="changeTime(formCreateProgram)">
+                  <div class="form-group">
+                    <label>Tiempo estimado</label>
+                    <input [(ngModel)]="time" type="number" name="time" #timeModel="ngModel" required min="0"
+                      class="form-control" placeholder="Ingrese el tiempo estimado en minutos" #myinputtime />
+                    <div class="error" *ngIf="(timeModel.touched || clicked) && !timeModel.valid">
+                      <div class="errorModal" *ngIf="timeModel.errors.required">Nombre es requerido</div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                  </div>
+                    </form>
+              </div>
+    
+            </div>
+          </div>
+        </div>

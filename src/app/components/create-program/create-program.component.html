@@ -1,0 +1,42 @@
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#modalCreate">Open Modal</button>
+<div class="modal show" tabindex="-1" role="dialog" data-backdrop="static" id="modalCreate">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{create ? 'Agregar a':'Editar'}} {{typeDoc}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" #form>
+        <form class="form" #formCreateProgram="ngForm" enctype="multipart/form-data" (ngSubmit)="save(formCreateProgram)">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input [(ngModel)]="name" type="text" name="name" #nameModel="ngModel" [required]="seccion == null" minlength="4"
+              class="form-control" placeholder="Ingrese el nombre" #myinputname />
+            <div class="error" *ngIf="(nameModel.touched || clicked) && !nameModel.valid">
+              <div class="errorModal" *ngIf="nameModel.errors.required">Nombre es requerido</div>
+              <div class="errorModal" *ngIf="nameModel.errors.minlength">Nombre debe ser al menos de
+                {{nameModel.errors.minlength.requiredLength}} caracteres</div>
+            </div>
+          </div>
+          <label>Imagen</label>
+          <img *ngIf="url !=null" [src]="url" style="width: 100%;" />
+          <div class="form-group inputDraggableImg">
+            <div  class="btn btn-success buttonDraggableImg">
+              {{url != null ? "Cambiar " : "Subir "}} imagen
+            </div>
+            <input [(ngModel)]="image" type="file" name="image" #imageModel="ngModel" [required]="seccion == null"
+            class="form-control upInputDraggableImg" (change)="changeImage($event)"  />
+          </div>
+          <div class="error" *ngIf="(imageModel.touched || clicked) && !imageModel.valid">
+            <div class="errorModal" *ngIf="imageModel.errors.required">La imagen es obligatoria</div>
+          </div>
+          <div class="buttonFormContainer">
+            <button type="submit" class="btn btn-outline-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

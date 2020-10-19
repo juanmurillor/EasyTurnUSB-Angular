@@ -1,0 +1,78 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+</head>
+<section id="register" class="mb-5 mt-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+        <div class="card_register">
+          <div class="card">
+            <div class="card-body text-center">
+              <form #formRegister="ngForm" (ngSubmit)="onAddUser(formRegister)" novalidate="">
+                <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
+                <div class="form-group">
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Correo Electronico"
+                     [(ngModel)]="usuarios.email" #email="ngModel" required minlength="8" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                     <div class="error" *ngIf="email.touched && !email.valid">
+                        <div *ngIf="email.errors.required">Correo Electronico es requerido</div>
+                        <div *ngIf="email.errors.pattern">Debe ser un Correo Electronico</div>
+                        <div *ngIf="email.errors.minlength">Correo Electronico debe ser al menos de {{email.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control" placeholder="Contraseña"
+                    [(ngModel)]="password" #contasena="ngModel" required minlength="6" maxlength="20" required>
+                    <div class="error" *ngIf="contasena.touched && !contasena.valid">
+                        <div *ngIf="contasena.errors.required">Contraseña es requerido</div>
+                        <div *ngIf="contasena.errors.minlength">Contraseña debe ser al menos de {{contasena.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="nombre" class="form-control" placeholder="Nombre"
+                    [(ngModel)]="usuarios.nombre" #nombre="ngModel" required minlength="3" maxlength="20" required>
+                    <div class="error" *ngIf="nombre.touched && !nombre.valid">
+                        <div *ngIf="nombre.errors.required">Nombre es requerido</div>
+                        <div *ngIf="nombre.errors.minlength">Nombre debe ser al menos de {{nombre.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="apellido" class="form-control" placeholder="Apellido"
+                    [(ngModel)]="usuarios.apellido" #apellido="ngModel" required minlength="3" maxlength="25" required>
+                    <div class="error" *ngIf="apellido.touched && !apellido.valid">
+                        <div *ngIf="apellido.errors.required">Apellido es requerido</div>
+                        <div *ngIf="apellido.errors.minlength">Apellido debe ser al menos de {{apellido.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <input type="number" name="telefono" class="form-control" placeholder="Telefono"
+                    [(ngModel)]="usuarios.telefono" #telefono="ngModel" required minlength="7" maxlength="10" required>
+                    <div class="error" *ngIf="telefono.touched && !telefono.valid">
+                        <div *ngIf="telefono.errors.required">Telefono es requerido</div>
+                        <div *ngIf="telefono.errors.minlength">Telefono debe ser al menos de {{telefono.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="tipoUsuario">Tipo de Usuario:</label>
+                  <select id="tipoUsuario" name="tipoUsuario" [(ngModel)]="tipoUsuario" class="form-control">
+                    <option value="" disabled>Tipo de docente</option>
+                    <option value="profesor">Profesor</option>
+                    <option value="asesor">Asesor</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block"> <span class="oi oi-person"></span> Crear Cuenta</button>
+                <div class="form-group">
+                  <a routerLink="" class="form-control login-user"> <span class="oi oi-account-login"></span> Ya tienes cuenta? Inicia Sesión</a>
+                </div>
+                <div class="form-group">
+                  <a routerLink="/user/recuperar-contrasena" class="form-control login-user"> <span class="oi oi-pencil"></span> Recuperar contraseña</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

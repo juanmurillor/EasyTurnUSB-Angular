@@ -1,0 +1,45 @@
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+</head>
+<section id="login" class="mb-5 mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+        <div class="card_login">
+          <div class="card">
+            <div class="card-body text-center">
+              <form #formLogin="ngForm" (ngSubmit)="onLogin(formLogin)" >
+                <h1 class="h3 mb-3 font-weight-normal" *ngIf="!isError">Easy Turn</h1>
+                <div class="alert alert-danger" role="alert" *ngIf="isError">
+                  Something is wrong!
+                </div>
+                <div class="form-group">
+                  <input [(ngModel)]="email" type="email" id="email" #emailLogin="ngModel" name="email" class="form-control" placeholder="Correo Electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                  <div class="error" *ngIf="emailLogin.touched && !emailLogin.valid">
+                      <div *ngIf="emailLogin.errors.required">Email es requerido</div>
+                      <div *ngIf="emailLogin.errors.pattern">Debe ser un correo Electronico</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input [(ngModel)]="password" #contasena="ngModel" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required minlength="6" maxlength="20" required>
+                  <div class="error" *ngIf="contasena.touched && !contasena.valid">
+                      <div *ngIf="contasena.errors.required">Contraseña es requerido</div>
+                      <div *ngIf="contasena.errors.minlength">Contraseña debe ser al menos de {{contasena.errors.minlength.requiredLength}} caracteres</div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block"> <span class="oi oi-account-login"></span> Inicar Sesión</button>
+                <div class="form-group">
+                  <a routerLink="/user/register" class="form-control login-user"> <span class="oi oi-pencil"></span> Crear Cuenta</a>
+                </div>
+                <div class="form-group">
+                  <a routerLink="/user/recuperar-contrasena" class="form-control login-user"> <span class="oi oi-pencil"></span> Recuperar contraseña</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

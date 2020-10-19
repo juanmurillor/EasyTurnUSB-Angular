@@ -1,0 +1,21 @@
+<section id="financiero" class="ex1">
+  <div class="jumbotron text-center">
+    <h1>Bienvenido  {{cajaName}}</h1>
+    <li *ngFor="let task of tasks">{{task}}</li>
+    <li *ngIf="tipoUsuario==='asesor' && route.snapshot.params['id-caja'] == null">Por favor selecciona una caja para continuar</li>
+    <br>
+    <div class="dropdown">
+      <button type="button" class="btn btn-primary" [routerLink]="url" *ngIf="tipoUsuario==='profesor' || route.snapshot.params['id-caja'] != null"><span class="oi oi-clipboard"></span>
+        Gestionar Turno
+      </button>
+        <div class="dropdown" *ngIf="tipoUsuario==='asesor' && route.snapshot.params['id-caja'] == null">
+          <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
+              class="oi oi-dollar"></span>Seleccionar caja
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              <a class="dropdown-item" *ngFor="let doc of menuCaja;" [routerLink]="'/bienvenido/'+doc.id">{{doc.data().nombre}}</a>
+            </div>
+        </div>
+    </div>
+
+  </div>

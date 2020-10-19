@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<section id="GestionarAcademico" class="ex1">
+  <div class="jumbotron text-center">
+    <h1>Usuarios</h1>
+    <div class="dropdown">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center">Nombre Completo</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Telefono</th>
+          <th class="text-center">Tipo</th>
+          <th class="text-center">Programa</th>
+          <th class="text-center">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let user of users">
+          <td scope="row" align="center" class="align-middle">{{user.data().nombre}} {{user.data().apellido}}</td>
+          <td align="center" class="align-middle">{{user.data().email}}</td>
+          <td align="center" class="align-middle">{{user.data().telefono}}</td>
+          <td align="center" class="align-middle">{{user.data().tipoUsuario}}</td>
+          <td align="center" class="align-middle" *ngIf="user.data().tipoUsuario != 'profesor'"> --- </td>
+          <td *ngIf="user.data().tipoUsuario == 'profesor'">
+            <div class="dropdown">
+              <button type="button" class="btn btn-outline-primary" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" style="width:100%">
+                {{user.data().programa != null && allPrograms.length > 0 ? 
+                  getProgramName(user.data().programa) : 'Sin elegir'}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-item" *ngFor="let program of allPrograms" (click)="updateUserProgram(user, program)">{{program.data().nombre}}</div>
+              </div>
+            </div>
+          </td>
+          <td align="center" class="align-middle">{{user.data().email}}</td>
+          <td align="center" class="align-middle">
+            <button *ngIf="user.data().habilitado" class="btn btn-outline-success"
+              (click)="changeUserState(user, false)">
+              <span class="oi oi-check"></span>
+              Habilitado</button>
+            <button *ngIf="!user.data().habilitado" class="btn btn-outline-secondary"
+              (click)="changeUserState(user, true)">
+              <span class="oi oi-warning"></span>
+              Inhabilitado</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>

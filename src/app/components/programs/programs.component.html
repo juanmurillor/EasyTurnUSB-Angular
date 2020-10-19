@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+<section class="ex1">
+  <div class="jumbotron text-center">
+    <h1>Programas</h1>
+    <div class="dropdown">
+    </div>
+  </div>
+  <div>
+    <div class="card" *ngFor="let seccion of allPrograms" style="margin-top: 20px;">
+      <div class="card-header" style="display: flex; justify-content: space-between;" (click)="toogleSeccion(seccion)">
+        <h5>{{seccion.seccion.data().nombre}}</h5>
+        <div>
+          <span class="oi oi-pencil" (click)="openSeccion(seccion.seccion, false, seccion.seccion.data().nombre)" ></span>
+          <span class="oi oi-plus" (click)="openSeccion(seccion.seccion, true, seccion.seccion.data().nombre)"></span>
+        </div>
+      </div>
+
+      <div *ngIf="!seccion.show" class="">
+        <div class="card-body" style="padding-bottom: 0;" *ngFor="let program of seccion.programs">
+          <div style="display: flex; justify-content: space-between;">
+            {{program.data().nombre}}
+            <span class="oi oi-pencil"  (click)="openSeccion(program, false, program.data().nombre)"></span>
+
+          </div>
+          <div>
+          </div>
+
+          <hr>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="fab-container">
+    <div class="fab" (click)="openSeccion(null, true, 'Facultad')">
+      <span class="oi oi-plus"></span>
+    </div>
+  </div>
+
+  <app-create-program #modalCreate>  </app-create-program>
+</section>

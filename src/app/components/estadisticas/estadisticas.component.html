@@ -1,0 +1,38 @@
+<div>
+  <div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="chart">
+      <button mat-button mat-raised-button color="primary" (click)="CantidadTurnosPedidos()">Cantidad de Turnos</button>
+      <button mat-button mat-raised-button color="primary" (click)="TurnosNoAtendidos()">Turnos No Atentidos</button>
+      <button mat-button mat-raised-button color="primary" (click)="CalificacionServicio()">Calificacion
+        Servicio</button>
+      <button mat-button mat-raised-button color="primary" (click)="TurnoMasSolicitado()">Tipo Turno Mas
+        Solicitado</button>
+      <canvas baseChart *ngIf="pieChartLabels.length >= 0 && loaded" [data]="pieChartData" [labels]="pieChartLabels"
+        [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="colors"
+        [legend]="pieChartLegend">
+      </canvas>
+      <h4 *ngIf="loaded && pieChartLabels.length <= 0">
+        Lo sentimos no hay datos para mostrar aun
+      </h4>
+      <h4 *ngIf="!loaded">
+        Cargando...
+      </h4>
+    </div>
+    <div class="containerFilters">
+      <button type="button" class="mat-button mat-primary mat-raised-button" (click)="filterDay()">
+        Día
+      </button>
+      <button type="button" class="mat-button mat-primary mat-raised-button" (click)="filterWeek()">
+        Semana
+      </button>
+      <button type="button" class="mat-button mat-primary mat-raised-button" (click)="filterMonth()">
+          Mes
+      </button>
+    </div>
+
+  </div>
+</div>
